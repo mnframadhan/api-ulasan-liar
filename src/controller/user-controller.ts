@@ -1,4 +1,5 @@
-import { UserAndReviewsResponse, UserResponse } from '../model/user-model'
+import { ResponseError } from '../error/response-error';
+import { CreateUserRequest, UserAndReviewsResponse, UserResponse } from '../model/user-model'
 import { UserService } from '../service/user-service'
 import { Context } from 'hono'
 
@@ -16,6 +17,10 @@ export class UserController {
             let ext2: string;
 
             const file1 = body['gambar1']
+
+            if (!file1) {
+                throw new ResponseError(400, "Gambar 1 harus diisi")
+            }
             
             if (file1 instanceof File) {
                 fileBuffer1 = await file1.arrayBuffer()
@@ -25,19 +30,25 @@ export class UserController {
 
             const file2 = body['gambar2']
 
+            if (!file2) {
+                throw new ResponseError(400, "Gambar 2 harus diisi")
+            }
+
             if (file2 instanceof File) {
                 fileBuffer2 = await file2.arrayBuffer()
                 const filename2 = file2.name
                 ext2 = String(filename2.split('.').pop())
             }
 
-            const request = { 
-                                name: String(body['name']), 
-                                jenis: String(body['jenis']),
-                                description: String(body['description'])
-                            }
+    
 
-            const response: UserResponse = await UserService.create(request, ctx, fileBuffer1!, fileBuffer2!, ext1!, ext2!)
+            const request : CreateUserRequest = { 
+                                name: body['name'],
+                                jenis: body['jenis'],
+                                description: body['description']
+                            } as CreateUserRequest
+
+            const response: UserResponse = await UserService.create(request, ctx, fileBuffer1!, fileBuffer2!, ext1!, ext2!) as UserResponse
 
             ctx.status(201);
             return ctx.json(response)

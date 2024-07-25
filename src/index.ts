@@ -9,7 +9,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 app.use("*", cors())
 
 // user api
-app.post('/api/register', UserController.create)
+app.post('/api/users/register', UserController.create)
 app.get('/api/users', UserController.get)
 app.get('/api/users/id/:user-id', UserController.getByUserID)
 app.get('/api/users/jenis/:jenis', UserController.getByJenis)
