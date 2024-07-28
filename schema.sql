@@ -33,3 +33,9 @@
 --     verified BOOLEAN DEFAULT FALSE,
 --     FOREIGN KEY(user_id) REFERENCES user (id)
 -- );
+
+-- alter table review add column created_at;
+-- alter table review add column agree DEFAULT 0;
+-- alter table review add column disagree DEFAULT 0;
+
+alter table user add column nreview default 0;

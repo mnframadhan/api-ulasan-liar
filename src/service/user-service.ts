@@ -39,7 +39,7 @@ export class UserService {
 
         
         const created_at = String(Date.now());
-        const query = `insert into user (name, created_at, jenis, description, gambar1, gambar2) values ('${validUserRequest.name}', '${created_at}', '${validUserRequest.jenis}', '${validUserRequest.description}', '${gambar1}', '${gambar2}')`
+        const query = `insert into user (name, created_at, jenis, description, gambar1, gambar2, nreview) values ('${validUserRequest.name}', '${created_at}', '${validUserRequest.jenis}', '${validUserRequest.description}', '${gambar1}', '${gambar2}', 0)`
         // insert into database
         await ctx.env.DB.prepare(query).run();
 
@@ -47,7 +47,8 @@ export class UserService {
             ...validUserRequest,
             gambar1: gambar1,
             gambar2: gambar2,
-            created_at: created_at
+            created_at: created_at,
+            nreview: 0
            }
 
         return response
@@ -111,7 +112,20 @@ export class UserService {
         const result : UserAndReviewsResponse = {user: JSON.parse(str_user), reviews: JSON.parse(str_reviews)}
         
         return result
+    }
 
+    static async getRating(ctx: Context<{Bindings: Bindings}>, user_id: number) {
 
+        const query = `select AVG(score) as rating from review where user_id=${user_id}`
+        const result = await ctx.env.DB.prepare(query).first();
+        return result;
+
+    }
+
+    static async getNumberOfReviews(ctx: Context<{Bindings: Bindings}>, user_id: number) {
+
+        const query = `select COUNT(*) as count from review where user_id=${user_id}`
+        const result = await ctx.env.DB.prepare(query).first();
+        return result;
     }
 }

@@ -107,4 +107,28 @@ export class UserController {
             return ctx.json({ err })
         }
     }
+
+    static async getStar(ctx: Context) {
+        try {
+            const params = ctx.req.param('user-id')
+            const response = await UserService.getRating(ctx, Number(params))
+            ctx.status(200);
+            return ctx.json(response);
+        } catch (err) {
+            ctx.status(404);
+            return ctx.json({ err })
+        }
+    }
+
+    static async getNumberOfReviews(ctx: Context) {
+        try {
+            const params = ctx.req.param('user-id')
+            const response = await UserService.getNumberOfReviews(ctx, Number(params))
+            ctx.status(200);
+            return ctx.json(response);
+        } catch (err) {
+            ctx.status(404);
+            return ctx.json({ err })
+        }
+    }
 }

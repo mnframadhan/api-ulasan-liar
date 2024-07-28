@@ -13,6 +13,7 @@ export type UserResponse = {
     description: string;
     gambar1: string;
     gambar2: string;
+    nreview: number;
   }
 
 

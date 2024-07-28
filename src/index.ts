@@ -13,6 +13,7 @@ app.post('/api/users/register', UserController.create)
 app.get('/api/users', UserController.get)
 app.get('/api/users/id/:user-id', UserController.getByUserID)
 app.get('/api/users/jenis/:jenis', UserController.getByJenis)
+app.get('/api/users/rating/:user-id', UserController.getStar)
 
 
 // review api
@@ -23,6 +24,7 @@ app.get('/api/reviews/:user-id', ReviewController.get)
 
 // user + review
 app.get('/api/users/:user-id/reviews', UserController.getUserAndReviews)
+app.get('/api/users/:user-id/n-reviews', UserController.getNumberOfReviews)
 
 //// agree and disagree of review
 app.patch('/api/reviews/:review-id/agree', ReviewController.agree)

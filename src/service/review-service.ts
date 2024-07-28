@@ -16,8 +16,11 @@ export class ReviewService {
 
         // insert into database
         const query = `insert into review (user_id, reviewer_name, review, score, created_at) values ('${user_id}', '${validReviewRequest.reviewer_name}', '${validReviewRequest.review}', '${validReviewRequest.score}', '${created_at}')`
+        const userQuery = `update user set nreview = nreview + 1 where id = ${user_id}`
+
         // insert into database
         await ctx.env.DB.prepare(query).run();
+        await ctx.env.DB.prepare(userQuery).run();
 
         const response : ReviewResponse =  {user_id: user_id, ...validReviewRequest}
 
