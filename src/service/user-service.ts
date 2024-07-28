@@ -56,7 +56,7 @@ export class UserService {
 
     static async get(ctx: Context<{Bindings: Bindings}>): Promise<UserResponse>{
 
-        const query  = `select * from user where verified = true`
+        const query  = `select * from user where verified = true order by nreview desc limit 25`
 
         // get from database
         const users = await ctx.env.DB.prepare(query).all()
