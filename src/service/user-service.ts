@@ -39,7 +39,7 @@ export class UserService {
 
         
         const created_at = String(Date.now());
-        const query = `insert into user (name, created_at, jenis, description, gambar1, gambar2, nreview) values ('${validUserRequest.name}', '${created_at}', '${validUserRequest.jenis}', '${validUserRequest.description}', '${gambar1}', '${gambar2}', 0)`
+        const query = `insert into user (name, created_at, jenis, description, gambar1, gambar2, nreview, gmaps_url) values ('${validUserRequest.name}', '${created_at}', '${validUserRequest.jenis}', '${validUserRequest.description}', '${gambar1}', '${gambar2}', 0, '${validUserRequest.gmaps_url}')`
         // insert into database
         await ctx.env.DB.prepare(query).run();
 

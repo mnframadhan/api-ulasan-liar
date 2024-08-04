@@ -1,8 +1,8 @@
-import { Hono } from 'hono'
+import { Context, Hono } from 'hono'
 import { cors } from 'hono/cors'
-import { Bindings } from 'hono/types'
 import { UserController } from './controller/user-controller'
 import { ReviewController } from './controller/review-controller'
+import { Bindings } from './bindings'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -31,5 +31,21 @@ app.patch('/api/reviews/:review-id/agree', ReviewController.agree)
 app.patch('/api/reviews/:review-id/disagree', ReviewController.disagree)
 
 // comment api
+
+
+// admin api
+app.post('/api/admin/register', async (ctx: Context<{Bindings: Bindings}>) => {
+
+    const body = await ctx.req.json()
+
+    const username = 
+
+    ctx.env.DB.prepare(`insert into`)
+
+
+    ctx.status(200)
+    return ctx.json({ message: 'admin authenticated' })
+})
+
 
 export default app

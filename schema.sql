@@ -38,4 +38,11 @@
 -- alter table review add column agree DEFAULT 0;
 -- alter table review add column disagree DEFAULT 0;
 
-alter table user add column nreview default 0;
+-- alter table user add column nreview default 0;
+-- create table admin (
+--     username TEXT NOT NULL,
+--     password TEXT NOT NULL,
+--     token TEXT
+-- )
+
+alter table user add column gmaps_url;

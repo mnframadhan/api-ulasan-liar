@@ -4,6 +4,7 @@ export type CreateUserRequest = {
     name: string;
     jenis: string;
     description: string;
+    gmaps_url? :string;
   }
   
 export type UserResponse = {
@@ -14,6 +15,7 @@ export type UserResponse = {
     gambar1: string;
     gambar2: string;
     nreview: number;
+    gmaps_url?: string;
   }
 
 

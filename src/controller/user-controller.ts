@@ -45,7 +45,8 @@ export class UserController {
             const request : CreateUserRequest = { 
                                 name: body['name'],
                                 jenis: body['jenis'],
-                                description: body['description']
+                                description: body['description'],
+                                gmaps_url: body['gmaps_url']
                             } as CreateUserRequest
 
             const response: UserResponse = await UserService.create(request, ctx, fileBuffer1!, fileBuffer2!, ext1!, ext2!) as UserResponse
